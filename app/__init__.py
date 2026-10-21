@@ -1,0 +1,2 @@
+"""RemoveBG web application."""
+

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#10120f" />
+    <title>RemoveBG — ananaba.be</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="toolbox-link" href="https://ananaba.be/applications/" aria-label="Retour à la toolbox Ananaba.be">
+          <span class="toolbox-mark" aria-hidden="true">Æ</span>
+          <span>ANANABA.BE / TOOLBOX</span>
+        </a>
+        <a class="brand" href="/" aria-label="RemoveBG accueil">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>removebg</span>
+        </a>
+      </header>
+
+      <section class="hero">
+        <p class="eyebrow">PAS TOP (JPEG,BMP,...) -> TOP (PNG TRANSPARENT)</p>
+        <h1>Supprime le fond, garde le sujet.</h1>
+      </section>
+
+      <section class="workspace" aria-label="Détourage d’image">
+        <div class="stage">
+          <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-describedby="dropHelp">
+            <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+            <div id="emptyState" class="empty-state">
+              <div class="upload-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M24 33V10m0 0-9 9m9-9 9 9M10 30v8h28v-8" /></svg>
+              </div>
+              <p class="drop-title">Dépose ton image ici</p>
+              <p id="dropHelp" class="drop-help">ou colle-la avec <kbd>⌘</kbd><kbd>V</kbd> / <kbd>Ctrl</kbd><kbd>V</kbd></p>
+              <button id="chooseButton" class="primary" type="button">Choisir un fichier</button>
+              <p class="limits">PNG, JPEG ou WebP · 15 Mo max · 12 Mpx max</p>
+            </div>
+
+            <div id="previewState" class="preview-state" hidden>
+              <div class="preview-head">
+                <div>
+                  <span id="fileName" class="file-name"></span>
+                  <span id="fileMeta" class="file-meta"></span>
+                </div>
+                <button id="replaceButton" class="ghost small" type="button">Remplacer</button>
+              </div>
+              <div class="preview-grid">
+                <figure>
+                  <figcaption>Original</figcaption>
+                  <div class="image-frame original"><img id="sourcePreview" alt="Image originale" /></div>
+                </figure>
+                <figure>
+                  <figcaption>Résultat</figcaption>
+                  <div class="image-frame checker">
+                    <img id="resultPreview" alt="Résultat détouré" hidden />
+                    <div id="resultPlaceholder" class="result-placeholder">Le résultat apparaîtra ici</div>
+                    <div id="loader" class="loader" hidden><span></span><p>Détourage en cours…</p></div>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="controls" aria-label="Réglages">
+          <div class="control-block">
+            <div class="control-label">
+              <label for="tolerance">Tolérance</label>
+              <output id="toleranceValue" for="tolerance">30</output>
+            </div>
+            <input id="tolerance" type="range" min="0" max="255" value="30" />
+            <div class="range-labels"><span>Précis</span><span>Large</span></div>
+            <p class="hint">Augmente si un halo du fond reste autour du sujet.</p>
+          </div>
+
+          <div class="control-block compact-block">
+            <label class="switch-row" for="removeEnclosed">
+              <span>
+                <strong>Zones fermées</strong>
+                <small>Retire aussi le fond dans les lettres et les petits creux.</small>
+              </span>
+              <input id="removeEnclosed" type="checkbox" checked />
+              <i aria-hidden="true"></i>
+            </label>
+          </div>
+
+          <div class="control-block">
+            <div class="control-label"><span>Couleur du fond</span></div>
+            <div class="segmented" role="group" aria-label="Mode de couleur">
+              <button id="autoColor" class="active" type="button">Auto</button>
+              <button id="manualColor" type="button">Manuelle</button>
+            </div>
+            <div id="colorControl" class="color-control" hidden>
+              <input id="backgroundColor" type="color" value="#ffffff" aria-label="Couleur du fond" />
+              <span id="colorValue">#FFFFFF</span>
+            </div>
+          </div>
+
+          <div id="errorBox" class="error" role="alert" hidden></div>
+          <button id="processButton" class="primary wide" type="button" disabled>Détourer l’image</button>
+          <a id="downloadButton" class="download wide" href="#" download="removebg-result.png" hidden>
+            Télécharger le PNG
+          </a>
+          <p id="jobInfo" class="job-info"></p>
+        </aside>
+      </section>
+
+      <footer>
+        <span>Fond uni → PNG transparent.</span>
+        <span>removebg.ananaba.be</span>
+      </footer>
+    </main>
+    <script src="/assets/app.js" defer></script>
+    <script src="/assets/tracker.js" data-site="removebg" defer></script>
+  </body>
+</html>
